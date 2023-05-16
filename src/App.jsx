@@ -1,16 +1,14 @@
-import logo from './logo.svg';
+import logo from "./logo.svg";
+import { Header } from "./components/Header";
+import { Table } from "./components/Table";
 
 function App() {
   return (
-    <div class="bg-gray">
-        <a
-          class="text-3xl font-bold underline"
-          href="https://github.com/solidjs/solid"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn Solid
-        </a>
+    <div class="h-full flex flex-1 flex-col space-y-8 p-8">
+      <Header />
+      <div className="space-y-4">
+        <Table/>
+      </div>
     </div>
   );
 }
