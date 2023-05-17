@@ -2,7 +2,7 @@ import { Button } from "../Button";
 
 export function TableTopActions() {
   return (
-    <div className="flex items-center justify-end">
+    <div class="flex items-center justify-end">
      <Button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +14,7 @@ export function TableTopActions() {
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="mr-2 h-4 w-4"
+          class="mr-2 h-4 w-4"
         >
           <circle cx={12} cy={12} r={10} />
           <line x1={12} x2={12} y1={8} y2={16} />

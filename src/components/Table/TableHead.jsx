@@ -1,14 +1,14 @@
 function HeaderCell(props) {
   return (
-    <th className="h-12 px-4 text-left align-middle font-medium text-gray-700 first:hidden first:md:block">
+    <th class="h-12 px-4 text-left align-middle font-semibold text-gray-500 first:hidden first:md:block">
       {props.children}
     </th>
   );
 }
 export function TableHead() {
   return (
-    <thead className="[&_tr]:border-b">
-      <tr className="border-b">
+    <thead class="[&_tr]:border-b">
+      <tr class="border-b">
         <HeaderCell>{/* Spacer */}</HeaderCell>
         <HeaderCell>
           <span>Date</span>

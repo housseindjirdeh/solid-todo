@@ -1,37 +1,43 @@
-import { createSignal, Show, Index, Switch, Match } from "solid-js";
-
-import data from "../../../mock-data.json";
+import { Show, Index, Switch, Match } from "solid-js";
+import { useNavigate } from "@solidjs/router";
 
 function TableCell(props) {
   return (
-    <td className="p-4 align-middle first:hidden first:md:block">
+    <td class="p-4 align-middle first:hidden first:md:block">
       {props.children}
     </td>
   );
 }
 
 function TableRow(props) {
+  const navigate = useNavigate();
+
   return (
     <tr
-      className="border-b transition-colors hover:bg-gray-50 cursor-pointer"
+      onClick={() => navigate(`/retro/${props.id}`)}
+      class="border-b transition-colors hover:bg-gray-50 cursor-pointer"
       data-state="false"
     >
       <TableCell>{/* Spacer */}</TableCell>
       <TableCell>
-        <div className="w-[120px]">{props.date.toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-      </TableCell>
-      <TableCell>
-        <div className="flex space-x-2">
-          <div className="bg-gray-200 inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground">
-            {props.contributors} contributors
-          </div>
-          <span className="max-w-[500px] truncate font-medium">
-            {props.title}
-          </span>
+        <div class="w-[120px]">
+          {props.date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </div>
       </TableCell>
       <TableCell>
-        <div className="flex w-[100px] items-center">
+        <div class="flex space-x-2">
+          <div class="bg-gray-200 inline-flex items-center border rounded-full px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground">
+            {props.contributors} contributors
+          </div>
+          <span class="max-w-[500px] truncate font-medium">{props.title}</span>
+        </div>
+      </TableCell>
+      <TableCell>
+        <div class="flex w-[100px] items-center">
           <Switch
             fallback={
               <svg
@@ -94,22 +100,17 @@ function TableRow(props) {
   );
 }
 
-export function TableBody() {
-  const [retros, setRetros] = createSignal(data);
-
-  const orderedRetros = retros().sort(function (a, b) {
-    return new Date(b.date) - new Date(a.date);
-  });
-
+export function TableBody(props) {
   return (
-    <tbody className="[&_tr:last-child]:border-0">
+    <tbody class="[&_tr:last-child]:border-0">
       <Show
-        when={orderedRetros?.length > 0}
+        when={props.rows?.length > 0}
         fallback={<button onClick={toggle}>Log in</button>}
       >
-        <Index each={orderedRetros}>
+        <Index each={props.rows}>
           {(retro) => (
             <TableRow
+              id={retro().id}
               date={new Date(retro().date)}
               contributors={retro().contributors}
               title={retro().title}
